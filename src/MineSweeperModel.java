@@ -22,6 +22,8 @@ public class MineSweeperModel {
 
     private int numberOfNonMines;
 
+    private final List<int[]> minePlacement= new ArrayList<>();
+
 
     public MineSweeperModel() {
         this.board = new char[SIZE][SIZE];
@@ -42,6 +44,7 @@ public class MineSweeperModel {
 
             if (board[x][y] != 'M') {
                 board[x][y] = 'M';
+                minePlacement.add(new int[]{x,y});
                 minesPlaced++;
             }
         }
@@ -55,18 +58,23 @@ public class MineSweeperModel {
     public  void updateBoard(int i, int j ){
         if(board[i][j] == 'M' || getGameStatus()== GameStatus.LOST){ //early return
             gameStatus=GameStatus.LOST;
+            revealAllMines();
             mineSweeperViewList.forEach((v)->  v.updateView(this.board,getGameStatus()));
+            return;
         }
-        else{
-            dfs(i,j);
-            printBoard();
-        }
+        revealSafeCells(i,j);
+        printBoard();
         checkIfWon();
         System.out.println("Game Status: "+gameStatus);
         mineSweeperViewList.forEach((v)->  v.updateView(this.board,getGameStatus()));
     }
+    private void revealAllMines(){
+        for(int[] pos: minePlacement){
+            board[pos[0]][pos[1]]='X';
+        }
+    }
 
-    private void dfs(int i, int j ){
+    private void revealSafeCells(int i, int j ){
         if(i<0 || i>=SIZE || j<0 || j>=SIZE ){ // handles invalid cases
             return;
         }
@@ -91,7 +99,7 @@ public class MineSweeperModel {
             board[i][j] = 'B';
             // recurse tp other squares
             for(int x=0; x < 8; x++){
-                dfs(i+dirX[x],j+dirY[x]);
+                revealSafeCells(i+dirX[x],j+dirY[x]);
             }
         }
 
