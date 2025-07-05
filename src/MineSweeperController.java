@@ -13,6 +13,6 @@ public class MineSweeperController implements ActionListener {
         String[] command = e.getActionCommand().split(" ");
         int i=Integer.parseInt(command[0]);
         int j=Integer.parseInt(command[1]);
-        model.updateBoard(i,j);
+        model.clickBoard(i,j);
     }
 }

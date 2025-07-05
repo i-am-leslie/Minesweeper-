@@ -4,8 +4,6 @@ import java.util.Random;
 
 public class MineSweeperModel {
 
-    // Board
-    // final array of possible positions
     private final char[][] board;
 
     private  final int[] dirX = {-1,-1,-1, 0, 0, 1, 1, 1};
@@ -55,7 +53,7 @@ public class MineSweeperModel {
     }
 
     // Play method
-    public  void updateBoard(int i, int j ){
+    public  void clickBoard(int i, int j ){
         if(board[i][j] == 'M' || getGameStatus()== GameStatus.LOST){ //early return
             gameStatus=GameStatus.LOST;
             revealAllMines();
@@ -110,10 +108,6 @@ public class MineSweeperModel {
             return;
         }
         gameStatus=GameStatus.UNDECIDED;
-    }
-
-    public List<MineSweeperView> getMineSweeperViewList() {
-        return mineSweeperViewList;
     }
 
     public void addView(MineSweeperView mineSweeper) {
