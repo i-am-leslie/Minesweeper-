@@ -34,7 +34,7 @@ public class MineSweeperModel {
         //randomly place mines
         Random rand = new Random();
         int minesPlaced = 0;
-        int minesToPlace= rand.nextInt(SIZE);
+        int minesToPlace= rand.nextInt(SIZE)+1;
 
         while (minesPlaced < minesToPlace) {
             int x = rand.nextInt(SIZE);

@@ -4,9 +4,6 @@ import java.awt.*;
 public class MineSweeperFrame extends JFrame implements  MineSweeperView{
     private final JButton[][] buttons;
 
-    //black is for mine (M)
-    // green is for unrevealed (E)
-    // Yellow is for reveleas (b)
 
     public MineSweeperFrame(){
         super("MineSweeper");
