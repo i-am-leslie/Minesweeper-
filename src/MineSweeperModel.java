@@ -1,14 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class MineSweeperModel {
+public class MineSweeperModel extends MineSweeperModelUtil {
 
     private final char[][] board;
-
-    private  final int[] dirX = {-1,-1,-1, 0, 0, 1, 1, 1};
-
-    private  final int[] dirY = {-1, 0, 1, -1, 1, -1, 0, 1};
 
     public static final int SIZE = 5;
 
@@ -16,39 +11,22 @@ public class MineSweeperModel {
 
     private GameStatus gameStatus;
 
-    private final List<MineSweeperView> mineSweeperViewList;
-
     private int numberOfNonMines;
 
     private final List<int[]> minePlacement= new ArrayList<>();
 
 
     public MineSweeperModel() {
+        super();
         this.board = new char[SIZE][SIZE];
         for(int i=0;i<SIZE;i++){
             for(int j=0;j<SIZE;j++) {
                 this.board[i][j] = 'E';
             }
         }
-
-        //randomly place mines
-        Random rand = new Random();
-        int minesPlaced = 0;
-        int minesToPlace= rand.nextInt(SIZE)+1;
-
-        while (minesPlaced < minesToPlace) {
-            int x = rand.nextInt(SIZE);
-            int y = rand.nextInt(SIZE);
-
-            if (board[x][y] != 'M') {
-                board[x][y] = 'M';
-                minePlacement.add(new int[]{x,y});
-                minesPlaced++;
-            }
-        }
+        int minesPlaced= MineSweeperModelUtil.randomlyPlaceMine( this.board, SIZE, this.minePlacement);
         gameStatus= GameStatus.UNDECIDED;
-        mineSweeperViewList=new ArrayList<>();
-        numberOfNonMines=(SIZE * SIZE)- minesPlaced;
+        numberOfNonMines=(SIZE * SIZE) - minesPlaced;
         printBoard();
     }
 
@@ -57,14 +35,14 @@ public class MineSweeperModel {
         if(board[i][j] == 'M' || getGameStatus()== GameStatus.LOST){ //early return
             gameStatus=GameStatus.LOST;
             revealAllMines();
-            mineSweeperViewList.forEach((v)->  v.updateView(this.board,getGameStatus()));
+            updateView(this.board,getGameStatus());
             return;
         }
         revealSafeCells(i,j);
         printBoard();
         checkIfWon();
         System.out.println("Game Status: "+gameStatus);
-        mineSweeperViewList.forEach((v)->  v.updateView(this.board,getGameStatus()));
+        updateView(this.board,getGameStatus());
     }
     private void revealAllMines(){
         for(int[] pos: minePlacement){
@@ -100,8 +78,8 @@ public class MineSweeperModel {
                 revealSafeCells(i+dirX[x],j+dirY[x]);
             }
         }
-
     }
+    @Override
     public void checkIfWon(){
         if(numberOfNonMines==0){
             gameStatus=GameStatus.WIN;
@@ -110,18 +88,8 @@ public class MineSweeperModel {
         gameStatus=GameStatus.UNDECIDED;
     }
 
-    public void addView(MineSweeperView mineSweeper) {
-        this.mineSweeperViewList.add(mineSweeper);
-    }
-
     private void printBoard(){
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                System.out.print(board[i][j] + " "+ " | " );
-            }
-            System.out.println( " ");
-        }
-        System.out.println( " ");
+       MineSweeperModelUtil.printBoard(this.board);
     }
 
     public GameStatus getGameStatus() {
