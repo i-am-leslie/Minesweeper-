@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class MineSweeperModel extends MineSweeperModelUtil {
+public class MineSweeperModel extends MineSweeperModelBase {
 
     private final char[][] board;
 
@@ -24,7 +24,7 @@ public class MineSweeperModel extends MineSweeperModelUtil {
                 this.board[i][j] = 'E';
             }
         }
-        int minesPlaced= MineSweeperModelUtil.randomlyPlaceMine( this.board, SIZE, this.minePlacement);
+        int minesPlaced= randomlyPlaceMine( this.board, SIZE, this.minePlacement);
         gameStatus= GameStatus.UNDECIDED;
         numberOfNonMines=(SIZE * SIZE) - minesPlaced;
         printBoard();
@@ -79,13 +79,13 @@ public class MineSweeperModel extends MineSweeperModelUtil {
             }
         }
     }
-    @Override
+
     public void checkIfWon(){
         if(numberOfNonMines==0){
-            gameStatus=GameStatus.WIN;
+            gameStatus= MineSweeperModel.GameStatus.WIN;
             return;
         }
-        gameStatus=GameStatus.UNDECIDED;
+        gameStatus= MineSweeperModel.GameStatus.UNDECIDED;
     }
 
     private void printBoard(){
