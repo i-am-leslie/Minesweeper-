@@ -7,6 +7,8 @@ public class MineSweeperModelBase {
     public final int[] dirX = {-1,-1,-1, 0, 0, 1, 1, 1};
 
     public  final int[] dirY = {-1, 0, 1, -1, 1, -1, 0, 1};
+    public static final int SIZE = 5;
+    public enum GameStatus{WIN,UNDECIDED, LOST};
 
     public MineSweeperModelBase(){
         mineSweeperViewList= new ArrayList<>();

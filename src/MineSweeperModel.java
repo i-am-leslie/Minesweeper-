@@ -5,10 +5,6 @@ public class MineSweeperModel extends MineSweeperModelBase {
 
     private final char[][] board;
 
-    public static final int SIZE = 5;
-
-    public enum GameStatus{WIN,UNDECIDED, LOST};
-
     private GameStatus gameStatus;
 
     private int numberOfNonMines;
