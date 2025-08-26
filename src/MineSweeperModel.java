@@ -23,7 +23,7 @@ public class MineSweeperModel extends MineSweeperModelBase {
         int minesPlaced= randomlyPlaceMine( this.board, SIZE, this.minePlacement);
         gameStatus= GameStatus.UNDECIDED;
         numberOfNonMines=(SIZE * SIZE) - minesPlaced;
-        printBoard();
+        printBoard(this.board);
     }
 
     // Play method
@@ -35,7 +35,7 @@ public class MineSweeperModel extends MineSweeperModelBase {
             return;
         }
         revealSafeCells(i,j);
-        printBoard();
+        printBoard(this.board);
         checkIfWon();
         System.out.println("Game Status: "+gameStatus);
         updateView(this.board,getGameStatus());
@@ -82,10 +82,6 @@ public class MineSweeperModel extends MineSweeperModelBase {
             return;
         }
         gameStatus= MineSweeperModel.GameStatus.UNDECIDED;
-    }
-
-    private void printBoard(){
-       MineSweeperModelUtil.printBoard(this.board);
     }
 
     public GameStatus getGameStatus() {

@@ -2,19 +2,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MineSweeperModelBase {
+public abstract class MineSweeperModelBase {
     private final List<MineSweeperView> mineSweeperViewList;
-    public final int[] dirX = {-1,-1,-1, 0, 0, 1, 1, 1};
 
-    public  final int[] dirY = {-1, 0, 1, -1, 1, -1, 0, 1};
+    protected final int[] dirX = {-1,-1,-1, 0, 0, 1, 1, 1};
+
+    protected  final int[] dirY = {-1, 0, 1, -1, 1, -1, 0, 1};
+
     public static final int SIZE = 5;
+
     public enum GameStatus{WIN,UNDECIDED, LOST};
 
     public MineSweeperModelBase(){
         mineSweeperViewList= new ArrayList<>();
     }
 
-    public static int randomlyPlaceMine(char[][] board, int size, List<int[]> minePlacement ) {
+    public int randomlyPlaceMine(char[][] board, int size, List<int[]> minePlacement ) {
         Random rand = new Random();
         int minesPlaced = 0;
         int minesToPlace= rand.nextInt(size)+1;
@@ -40,4 +43,7 @@ public class MineSweeperModelBase {
         mineSweeperViewList.forEach((v)->  v.updateView(board, gameStatus));
     }
 
+    public void printBoard(char[][] board) {
+        MineSweeperModelUtil.printBoard(board);
+    }
 }
