@@ -1,4 +1,4 @@
 public interface MineSweeperView {
 
-     void updateView(char[][] board, MineSweeperModel.GameStatus gameStatus);
+     void updateView(char[][] board, MineSweeperModelBase.GameStatus gameStatus);
 }

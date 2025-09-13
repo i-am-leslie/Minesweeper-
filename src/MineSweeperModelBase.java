@@ -39,7 +39,7 @@ public abstract class MineSweeperModelBase {
         this.mineSweeperViewList.add(mineSweeper);
     }
 
-    public void updateView(char[][] board, MineSweeperModel.GameStatus gameStatus) {
+    public void updateView(char[][] board,GameStatus gameStatus) {
         mineSweeperViewList.forEach((v)->  v.updateView(board, gameStatus));
     }
 

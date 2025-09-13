@@ -78,10 +78,10 @@ public class MineSweeperModel extends MineSweeperModelBase {
 
     public void checkIfWon(){
         if(numberOfNonMines==0){
-            gameStatus= MineSweeperModel.GameStatus.WIN;
+            gameStatus= GameStatus.WIN;
             return;
         }
-        gameStatus= MineSweeperModel.GameStatus.UNDECIDED;
+        gameStatus= GameStatus.UNDECIDED;
     }
 
     public GameStatus getGameStatus() {
